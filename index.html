@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aashin's Portfolio</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>My LinkedIn Share Example</title>
+
+    <!-- Open Graph tags for LinkedIn -->
+    <meta property="og:title" content="Custom LinkedIn Share Title">
+    <meta property="og:description" content="This is the text I want to share on LinkedIn! It will appear in the preview when shared.">
+    <meta property="og:image" content="https://via.placeholder.com/600x315.png?text=LinkedIn+Preview+Image">
+    <meta property="og:url" content="https://yourdomain.com/linkedin-share-demo.html">
+    <meta property="og:type" content="website">
+
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<h2>Share This Page to LinkedIn</h2>
+<p>This page is set up so that LinkedIn will display the above OG title and description.</p>
+<button onclick="shareToLinkedIn()">Share on LinkedIn</button>
+
+<script>
+function shareToLinkedIn() {
+    let pageURL = window.location.href; // Current page URL
+    let linkedInUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(pageURL);
+    window.open(linkedInUrl, "_blank", "width=600,height=500");
+}
+</script>
+
+</body>
 </html>
