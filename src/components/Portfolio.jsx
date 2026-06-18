@@ -60,10 +60,13 @@ const ProjectCard = ({
                 src={images[currentImageIndex]}
                 alt='project_image'
                 className='absolute top-0 left-0 w-full h-full object-cover md:rounded-3xl'
-                initial={{ x: "-20%", zIndex: 1 }}
-                animate={{ x: 0, zIndex: 2 }}
-                exit={{ x: "100%", zIndex: 3 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+                initial={{ opacity: 0, scale: 1.06 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  opacity: { duration: 0.9, ease: "easeInOut" },
+                  scale: { duration: 4, ease: "easeOut" },
+                }}
               />
             </AnimatePresence>
           </>
