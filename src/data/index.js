@@ -2,6 +2,16 @@ import {
   writer,
   diet,
   lungfraud,
+  overview,
+  silos,
+  truck,
+  BestProject,
+  Executives,
+  technical,
+  community,
+  leadership,
+  academic,
+  creative
 } from "../assets";
 
 export const navLinks = [
@@ -68,24 +78,67 @@ const experiences = [
 
 const portfolio = [
   {
-    name: "Lung Cancer Tampering Detection",
+    name: "Manufacturing Brain",
     description:
-      "An AI-based system designed to detect fraudulent modifications in lung CT scans, specifically identifying artificially inserted cancerous nodules.",
-    image: lungfraud,
+      "A centralized production management system that aligns demand, supply, inventory, and scheduling decisions.",
+    images: [truck, overview, silos],
   },
   {
-    name: "DietX",
+    name: "Project Management Tool",
     description:
-      "AI-powered Dietary Assistance Website analyzes meal photos to provide nutritional information and personalized dietary recommendations based on hospital-specific requirements.",
-    image: diet,
+      "A comprehensive project management solution for teams to collaborate and track progress.",
+    images: [BestProject, Executives],
   },
   {
     name: "Writer's Aid",
     description:
       "A website that leverages gemini API fetch to help writers with writer's block.",
-    image: writer,
+    images: [writer],
   },
 ];
 
-export { experiences, portfolio };
+const events = [
+  {
+    title: "National Hackathon — Finalist",
+    category: "Technical",
+    date: "Oct 2024",
+    description: "Reached the national finals with a real-time logistics optimization tool, competing among 300+ teams across the country.",
+    images: [technical],
+    heightClass: "h-[260px]"
+  },
+  {
+    title: "Tree Plantation Drive",
+    category: "Community",
+    date: "Jul 2024",
+    description: "Co-organized a drive planting 200+ saplings across 3 neighborhoods.",
+    images: [community],
+    heightClass: "h-[260px]"
+  },
+  {
+    title: "Tech Talk — Cloud Arch.",
+    category: "Leadership",
+    date: "Jan 2025",
+    description: "40-min session on microservices to 80+ students.",
+    images: [leadership],
+    heightClass: "h-[200px]"
+  },
+  {
+    title: "IEEE Research Paper",
+    category: "Academic",
+    date: "Mar 2025",
+    description: "Published on cloud-native distributed tracing.",
+    images: [academic],
+    heightClass: "h-[200px]"
+  },
+  {
+    title: "Open-Source Project",
+    category: "Creative",
+    date: "May 2025",
+    description: "DevOps toolkit — 500+ stars, 40 contributors.",
+    images: [creative],
+    heightClass: "h-[200px]"
+  }
+];
+
+export { experiences, portfolio, events };
 
