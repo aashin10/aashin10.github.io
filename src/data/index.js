@@ -104,7 +104,7 @@ const events = [
     date: "Oct 2024",
     description: "Reached the national finals with a real-time logistics optimization tool, competing among 300+ teams across the country.",
     images: [technical],
-    heightClass: "h-[148px]"
+    heightClass: "h-[260px]"
   },
   {
     title: "Tree Plantation Drive",
@@ -112,7 +112,7 @@ const events = [
     date: "Jul 2024",
     description: "Co-organized a drive planting 200+ saplings across 3 neighborhoods.",
     images: [community],
-    heightClass: "h-[104px]"
+    heightClass: "h-[260px]"
   },
   {
     title: "Tech Talk — Cloud Arch.",
@@ -120,7 +120,7 @@ const events = [
     date: "Jan 2025",
     description: "40-min session on microservices to 80+ students.",
     images: [leadership],
-    heightClass: "h-[82px]"
+    heightClass: "h-[200px]"
   },
   {
     title: "IEEE Research Paper",
@@ -128,7 +128,7 @@ const events = [
     date: "Mar 2025",
     description: "Published on cloud-native distributed tracing.",
     images: [academic],
-    heightClass: "h-[82px]"
+    heightClass: "h-[200px]"
   },
   {
     title: "Open-Source Project",
@@ -136,7 +136,7 @@ const events = [
     date: "May 2025",
     description: "DevOps toolkit — 500+ stars, 40 contributors.",
     images: [creative],
-    heightClass: "h-[82px]"
+    heightClass: "h-[200px]"
   }
 ];
 
