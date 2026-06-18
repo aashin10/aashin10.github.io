@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { BrowserRouter } from "react-router-dom";
-import { Contact, Experience, Hero, Navbar, Portfolio } from "./components";
+import { Contact, Experience, Hero, Navbar, Portfolio, Events } from "./components";
 
 const App = () => {
   const wrapperRef = useRef(null);
@@ -15,6 +15,12 @@ const App = () => {
           </div>
           <div id="portfolio" className='relative z-30 bg-primary mt-[-2px]'>
             <Portfolio />
+          </div>
+          <div id="experience" className='relative z-30 bg-primary'>
+            <Experience />
+          </div>
+          <div id="events" className='relative z-30 bg-primary'>
+            <Events />
           </div>
           <div id="contact" className='relative z-30 bg-primary'>
             <Contact />
