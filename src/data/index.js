@@ -45,43 +45,23 @@ export const navLinks = [
 
 const experiences = [
   {
-    title: "YouTube Content Creator",
-    company_name: "Self Employed",
-    date: "2016 - Present",
+    title: "Associate Software Engineer",
+    company_name: "Experion Technologies",
+    date: "Dec 2025 - Present",
     details: [
-      "Built a subscriber base of over <span style='color: white;'>500,000 subscribers</span> by creating video content to help programmers.",
-      "Crafted visually appealling programming videos that have garnered over <span style='color: white;'>30,000,000 views</span>.",
-      "Produced high-quality educational and entertaining videos for clients including <span style='color: white;'>Intel, JetBrains, and MicroCenter</span>.",
+      "Developing and maintaining <span style='color: white;'>enterprise-scale manufacturing software</span> used across multiple production plants in the United States.",
+      "Designing and implementing <span style='color: white;'>.NET backend services, REST APIs, and SQL solutions</span> powering production scheduling and operational workflows.",
+      "Contributing to a <span style='color: white;'>microservices-based platform</span> with CI/CD pipelines, cloud-hosted services, and complex business logic involving 18+ scheduling constraints.",
     ],
   },
   {
-    title: "Software Developer",
-    company_name: "Indie",
-    date: "2019 - 2023",
+    title: "Software Engineer Trainee",
+    company_name: "Experion Technologies",
+    date: "Aug 2025 - Dec 2025",
     details: [
-      "Developed and delivered custom interdisciplinary coding portfolio for clients including <span style='color: white;'>Nvidia, Hostinger, and Amazon</span>.",
-      "<span style='color: white;'>Designed and developed innovative</span> AI applications and interactive websites.",
-      "<span style='color: white;'>Managed full project lifecycle</span> from concept to deployment in successful and timely project completions.",
-    ],
-  },
-  {
-    title: "Software Engineer",
-    company_name: "Prime 3",
-    date: "2018 - 2019",
-    details: [
-      "Built custom enterprise applications for a <span style='color: white;'>Fortune 500 company</span> as a full-stack software engineer.",
-      "Developed and maintained <span style='color: white;'>scalable backend services</span>, ensuring high availability for critical business applications.",
-      "<span style='color: white;'>Collaborated with a team</span> to design and implement front-end interfaces.",
-    ],
-  },
-  {
-    title: "Computer Science",
-    company_name: "ODU",
-    date: "2015 - 2018",
-    details: [
-      "Built a <span style='color: white;'>computer science foundation</span> learning theory, computer architecture, and software engineering.",
-      "Worked and interned at <span style='color: white;'>NASA and Norfolk Southern Railway</span> to gain practical experience in the field of data analysis.",
-      "Acted as a member of the <span style='color: white;'>Association for Computing Machinery</span> (ACM).",
+      "Co-led development of Experion's <span style='color: white;'>award-winning Project Management Tool (PMT)</span>, delivering an AI-enabled MVP within two months.",
+      "Built and integrated features including <span style='color: white;'>Sprint Boards, AI Sprint Planner, Backlog Management, Reports, and Team Collaboration modules</span>.",
+      "Collaborated within a <span style='color: white;'>14-member cross-functional team</span> and contributed to a project that received the company's Best Project Award.",
     ],
   },
 ];
@@ -109,43 +89,43 @@ const portfolio = [
 
 const events = [
   {
-    title: "National Hackathon — Finalist",
+    title: "IEEE Hackathon — Best Project Winner",
     category: "Technical",
-    date: "Oct 2024",
-    description: "Reached the national finals with a real-time logistics optimization tool, competing among 300+ teams across the country.",
+    date: "Jan 2022",
+    description: "Won the best project award for building an intuitive website for writers to aid with their writing, competing among 30+ teams across the country.",
     images: [technical],
     heightClass: "h-[260px]"
   },
   {
-    title: "Tree Plantation Drive",
-    category: "Community",
-    date: "Jul 2024",
-    description: "Co-organized a drive planting 200+ saplings across 3 neighborhoods.",
-    images: [community],
+    title: "Hosting Events",
+    category: "Extra-Curricular",
+    date: "Mar 2026",
+    description: "Coordinated corporate programs and stage events with 1000+ attendees.",
+    images: [creative],
     heightClass: "h-[260px]"
   },
   {
-    title: "Tech Talk — Cloud Arch.",
+    title: "Led a 14 Member Team",
     category: "Leadership",
-    date: "Jan 2025",
-    description: "40-min session on microservices to 80+ students.",
-    images: [leadership],
+    date: "Nov 2025",
+    description: "Led development of Project Management Tool for Experion Technologies with 300+ Projects and 1000+ Users.",
+    images: [BestProject],
     heightClass: "h-[200px]"
   },
   {
-    title: "IEEE Research Paper",
-    category: "Academic",
-    date: "Mar 2025",
-    description: "Published on cloud-native distributed tracing.",
+    title: "Community Marathon",
+    category: "Community",
+    date: "Mar 2026",
+    description: "Participated in a local marathon with theme \"𝐍𝐨 𝐭𝐨 𝐃𝐫𝐮𝐠𝐬, 𝐘𝐞𝐬 𝐭𝐨 𝐅𝐢𝐭𝐧𝐞𝐬𝐬.\" to raise awareness against the use of drugs in the community.",
     images: [academic],
     heightClass: "h-[200px]"
   },
   {
-    title: "Open-Source Project",
-    category: "Creative",
-    date: "May 2025",
-    description: "DevOps toolkit — 500+ stars, 40 contributors.",
-    images: [creative],
+    title: "Borrowings Tracker",
+    category: "Entrepreneurship",
+    date: "May 2026",
+    description: "A simple application to track borrowings and lendings among friends and family, built using React Native and Supabase.",
+    images: [community],
     heightClass: "h-[200px]"
   }
 ];
