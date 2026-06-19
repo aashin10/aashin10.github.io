@@ -5,9 +5,9 @@ import menu from "./menu.svg";
 import writer from "./writer.png";
 import diet from "./diet.png";
 import lungfraud from "./lungfraud.png";
-import overview from "./overview.jpeg";
-import silos from "./silos.jpeg";
-import truck from "./truck.jpg";
+import overview from "./LeapTeam.jpg";
+import silos from "./silos.png";
+import truck from "./truck.jpeg";
 import BestProject from "./BestProject.jpeg";
 import Executives from "./Executives.jpeg";
 
