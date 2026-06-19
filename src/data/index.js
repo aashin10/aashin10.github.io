@@ -154,7 +154,7 @@ const certifications = [
   {
     abbr: "IP",
     name: "Image Processing",
-    platform: "Coursera",
+    platform: "IBM - Coursera",
     date: "2025",
     id: "08c5165ddafee3b852c91095f279aafd",
     tags: ["Image Processing", "Computer Vision", "Python"],
@@ -166,7 +166,7 @@ const certifications = [
   {
     abbr: "ML",
     name: "Machine Learning",
-    platform: "Coursera",
+    platform: "IBM - Coursera",
     date: "2025",
     id: "8792f951700bc85ef973dc3563049e79",
     tags: ["Machine Learning", "AI", "Python"],
