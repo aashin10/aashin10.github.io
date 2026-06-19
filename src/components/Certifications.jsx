@@ -312,22 +312,14 @@ const Certifications = () => {
                   </div>
                   <span className="cert-vbadge">✓ Verified</span>
                 </div>
-                <div className="cert-imgzone">
-                  <svg
-                    width="46"
-                    height="46"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke={cert.color}
-                    strokeWidth="1.2"
-                    style={{ opacity: 0.35 }}
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="9" cy="9" r="2" />
-                    <path d="M3 15l5-5 4 4 3-3 6 6" />
-                  </svg>
-                  <div className="cert-izl">Certificate Image</div>
-                  <div className="cert-izs">Click to upload</div>
+                <div className="cert-imgzone" style={{ padding: 0, background: "transparent", border: "none" }}>
+                  <a href={cert.link} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
+                    <img
+                      src={cert.image}
+                      alt={cert.name}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px", display: "block", cursor: "pointer" }}
+                    />
+                  </a>
                 </div>
                 <div className="cert-meta-g">
                   <div className="cert-mi">
