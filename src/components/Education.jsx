@@ -107,15 +107,7 @@ const Education = () => {
   return (
     <div className="px-6 text-center md:px-20 lg:px-40">
       <motion.div variants={textVariant()}>
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[6px] text-[#1689C8]">
-          Academic Foundation
-        </p>
         <h2 className={`${styles.sectionText} text-white`}>Education</h2>
-        <div className="social-divider mx-auto mt-5 h-[2px] w-20" />
-        <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[#F0EFEB]/55">
-          Where the curiosity was trained &mdash; the milestones that shaped how I learn,
-          reason, and build.
-        </p>
       </motion.div>
 
       <div className="relative mx-auto mt-12 max-w-3xl text-left">
