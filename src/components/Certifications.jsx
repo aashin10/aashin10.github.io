@@ -1,16 +1,22 @@
 import { motion } from "framer-motion";
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { certifications } from "../data";
 import { SectionWrapper } from "../hoc";
 import { styles } from "../styles";
-import { fadeIn, textVariant } from "../utils/motion";
 
-// Rendered rocket size (matches the 46x114 SVG; .cert-rocket-inner is unscaled).
-const ROCKET_W = 46;
-const ROCKET_H = 114;
-const CARD_GAP = 16;
-const CEILING_MARGIN = 14; // keep the rocket fully visible below the panel ceiling
+// Rendered rocket size (the 46x114 SVG scaled 1.45x via .cert-rocket-inner).
+const ROCKET_W = 67;
+const ROCKET_H = 165;
+const CARD_GAP = 20;
+const CEILING_MARGIN = 14;
+
+// Gentle opacity reveal — keeps the section subtle and avoids the section's
+// overflow clip cutting a sliding entrance.
+const reveal = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.7, ease: "easeOut" } },
+};
 
 const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 const easeInCubic = (t) => t * t * t;
@@ -27,27 +33,11 @@ const Certifications = () => {
   const exhaustRef = useRef(null);
   const busyRef = useRef(false);
   const rafRef = useRef(0);
+  const safetyRef = useRef(0);
+  const cancelledRef = useRef(false);
   const deliveredRef = useRef(false);
 
   const cert = certifications[active];
-
-  // Twinkling starfield — generated once.
-  const stars = useMemo(
-    () =>
-      Array.from({ length: 65 }, () => {
-        const sz = Math.random() < 0.3 ? 2 : 1;
-        return {
-          width: `${sz}px`,
-          height: `${sz}px`,
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-          opacity: 0.12 + Math.random() * 0.45,
-          animationDelay: `${Math.random() * 5}s`,
-          animationDuration: `${2 + Math.random() * 3}s`,
-        };
-      }),
-    []
-  );
 
   // Size the viewer (tall as the sidebar on desktop; fixed when stacked on
   // mobile) and keep an already-delivered card resting in place across
@@ -101,10 +91,30 @@ const Certifications = () => {
       cardTargetTop,
       cardStartTop: wH - vOffTop + ROCKET_H + CARD_GAP, // below the panel, out of view
       rocketStop: vOffTop + cardTargetTop - CARD_GAP - ROCKET_H,
-      rocketStart: wH, // top edge at panel bottom = hidden
-      rocketExit: -(ROCKET_H + 20), // fully above the ceiling
+      rocketStart: wH, // top edge at section bottom = hidden
+      rocketExit: -(ROCKET_H + 30), // up past the heading, above the section top
       rocketLeft: vOffLeft + vW / 2 - ROCKET_W / 2,
     };
+  };
+
+  // Snap the card to its resting (centred, visible) spot and hide the rocket.
+  // Used as the safety net / end state so the section is never left broken,
+  // even if the rAF flourish is interrupted or doesn't run.
+  const settle = () => {
+    cancelledRef.current = true; // stop any in-flight rAF chain from fighting us
+    cancelAnimationFrame(rafRef.current);
+    const card = cardRef.current;
+    const rocket = rocketRef.current;
+    const exhaust = exhaustRef.current;
+    if (!card) return;
+    card.style.top = getSizes().cardTargetTop + "px";
+    card.style.opacity = "1";
+    card.classList.add("live");
+    if (rocket) rocket.style.opacity = "0";
+    if (exhaust) exhaust.style.display = "none";
+    setNozzles(false);
+    deliveredRef.current = true;
+    busyRef.current = false;
   };
 
   // Run the full rocket sequence each time playKey changes.
@@ -116,6 +126,11 @@ const Certifications = () => {
     if (!card || !rocket || !exhaust) return;
 
     busyRef.current = true;
+    cancelledRef.current = false;
+    clearTimeout(safetyRef.current);
+    // Safety net: if the rAF flourish stalls or is interrupted, force the card
+    // into its resting visible state so the section is never left broken.
+    safetyRef.current = setTimeout(settle, 3800);
 
     // Reset everything off-screen / hidden.
     card.style.opacity = "0";
@@ -125,13 +140,12 @@ const Certifications = () => {
     exhaust.style.display = "none";
     setNozzles(false);
 
-    let cancelled = false;
     const raf = (fn) => (rafRef.current = requestAnimationFrame(fn));
 
     // Double rAF so the freshly-rendered card can be measured.
     raf(() =>
       raf(() => {
-        if (cancelled) return;
+        if (cancelledRef.current) return;
         const S = getSizes();
 
         rocket.style.left = S.rocketLeft + "px";
@@ -146,10 +160,10 @@ const Certifications = () => {
         setNozzles(true);
 
         // PHASE 1 — fly in (rocket leads the card by CARD_GAP)
-        const travelDur = 900;
+        const travelDur = 1050;
         const t0 = performance.now();
         const travel = (now) => {
-          if (cancelled) return;
+          if (cancelledRef.current) return;
           const t = Math.min((now - t0) / travelDur, 1);
           const e = easeOutCubic(t);
           rocket.style.top =
@@ -171,7 +185,7 @@ const Certifications = () => {
           const amp = 3;
           const p0 = performance.now();
           const float = (now) => {
-            if (cancelled) return;
+            if (cancelledRef.current) return;
             const el = now - p0;
             if (el >= dur) {
               rocket.style.top = S.rocketStop + "px";
@@ -185,22 +199,20 @@ const Certifications = () => {
           raf(float);
         };
 
-        // PHASE 3 — exit up through the ceiling, then vanish
+        // PHASE 3 — exit up past the heading, out the section top, then vanish
         const exit = () => {
-          const dur = 650;
+          const dur = 750;
           const x0 = performance.now();
           const fly = (now) => {
-            if (cancelled) return;
+            if (cancelledRef.current) return;
             const t = Math.min((now - x0) / dur, 1);
             const e = easeInCubic(t);
             rocket.style.top =
               S.rocketStop + (S.rocketExit - S.rocketStop) * e + "px";
             if (t < 1) raf(fly);
             else {
-              rocket.style.opacity = "0";
-              exhaust.style.display = "none";
-              setNozzles(false);
-              busyRef.current = false;
+              clearTimeout(safetyRef.current);
+              settle();
             }
           };
           raf(fly);
@@ -211,8 +223,10 @@ const Certifications = () => {
     );
 
     return () => {
-      cancelled = true;
+      cancelledRef.current = true;
       cancelAnimationFrame(rafRef.current);
+      clearTimeout(safetyRef.current);
+      busyRef.current = false;
     };
   }, [playKey]);
 
@@ -242,28 +256,21 @@ const Certifications = () => {
   };
 
   return (
-    <div className="md:px-20 lg:px-40">
-      <motion.div variants={textVariant()}>
+    <div
+      className="cert-wrap relative overflow-hidden px-6 md:px-20 lg:px-40"
+      ref={wrapRef}
+    >
+      <motion.div variants={reveal}>
         <h2 className={`${styles.sectionText} text-white text-center`}>
           Certifications
         </h2>
       </motion.div>
 
-      <motion.div
-        variants={fadeIn("up", "spring", 0.1, 0.75)}
-        className="mt-10 md:mt-20 px-4 sm:px-0"
-      >
-        <div className="cert-wrap max-w-4xl mx-auto" ref={wrapRef}>
-          <div className="cert-stars">
-            {stars.map((s, i) => (
-              <span key={i} style={s} />
-            ))}
-          </div>
-
-          <div className="cert-layout">
+      <motion.div variants={reveal} className="mt-10 md:mt-16">
+        <div className="cert-layout max-w-6xl mx-auto">
             <div className="cert-sidebar" ref={sidebarRef}>
               {certifications.map((c, i) => {
-                const fs = c.abbr.length > 3 ? 13 : c.abbr.length === 3 ? 16 : 18;
+                const fs = c.abbr.length > 3 ? 18 : c.abbr.length === 3 ? 22 : 26;
                 return (
                   <div
                     key={c.id}
@@ -307,8 +314,8 @@ const Certifications = () => {
                 </div>
                 <div className="cert-imgzone">
                   <svg
-                    width="32"
-                    height="32"
+                    width="46"
+                    height="46"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke={cert.color}
@@ -329,7 +336,7 @@ const Certifications = () => {
                   </div>
                   <div className="cert-mi">
                     <label>Credential ID</label>
-                    <p style={{ fontFamily: "monospace", fontSize: "13px" }}>
+                    <p style={{ fontFamily: "monospace", fontSize: "18px" }}>
                       {cert.id}
                     </p>
                   </div>
@@ -345,8 +352,9 @@ const Certifications = () => {
               </div>
             </div>
           </div>
+      </motion.div>
 
-          <div className="cert-rocket" ref={rocketRef} style={{ opacity: 0 }}>
+      <div className="cert-rocket" ref={rocketRef} style={{ opacity: 0 }}>
             <div className="cert-rocket-inner">
               <svg
                 width="46"
@@ -485,8 +493,6 @@ const Certifications = () => {
             </div>
           </div>
         </div>
-      </motion.div>
-    </div>
   );
 };
 
