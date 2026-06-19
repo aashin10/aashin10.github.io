@@ -38,6 +38,10 @@ export const navLinks = [
     title: "Certifications",
   },
   {
+    id: "socials",
+    title: "Socials",
+  },
+  {
     id: "contact",
     title: "Contact",
   },
@@ -157,5 +161,29 @@ const certifications = [
   },
 ];
 
-export { experiences, portfolio, events, certifications };
+// Social profiles rendered by the Socials section. Add up to a couple more
+// here (keep an `icon` that maps to a glyph in Socials.jsx) and the layout
+// stays centred and balanced automatically.
+const socials = [
+  {
+    id: "github",
+    icon: "github",
+    label: "GitHub",
+    handle: "@aashin10",
+    url: "https://github.com/aashin10",
+    blurb: "Where the code lives — projects, experiments, and the occasional late-night commit.",
+    accent: "#8b5cf6",
+  },
+  {
+    id: "linkedin",
+    icon: "linkedin",
+    label: "LinkedIn",
+    handle: "in/aashin-thomas",
+    url: "https://www.linkedin.com/in/aashin-thomas/",
+    blurb: "The professional side — experience, milestones, and a network worth talking to.",
+    accent: "#1689C8",
+  },
+];
+
+export { experiences, portfolio, events, certifications, socials };
 
