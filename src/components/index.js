@@ -8,8 +8,9 @@ import Position from "./Position";
 import SpacemanCanvas from "./Spaceman";
 import Events from "./Events";
 import Certifications from "./Certifications";
+import Socials from "./Socials";
 
 export {
-    CanvasLoader, Contact, Experience, Hero, Navbar, Portfolio, Position, SpacemanCanvas, Events, Certifications
+    CanvasLoader, Contact, Experience, Hero, Navbar, Portfolio, Position, SpacemanCanvas, Events, Certifications, Socials
 };
 
