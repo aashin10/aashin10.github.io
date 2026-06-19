@@ -555,3 +555,87 @@
   border-radius: 2px;
   animation: social-divider-glow 3s ease-in-out infinite;
 }
+
+/* ----- Education timeline -----
+   A faint rail (.edu-track) with an animated draw-in line (.edu-progress)
+   running through the icon nodes; cards carry their own --accent for hover. */
+@keyframes edu-node-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  80%, 100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* The vertical line sits at the centre of the 48px (w-12) node column. */
+.edu-track,
+.edu-progress {
+  position: absolute;
+  left: 23px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.edu-track {
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(22, 137, 200, 0.22) 10%,
+    rgba(22, 137, 200, 0.22) 90%,
+    transparent
+  );
+}
+.edu-progress {
+  z-index: 1;
+  transform-origin: top;
+  background: linear-gradient(to bottom, #1689c8, #38bdf8, #818cf8);
+  box-shadow: 0 0 12px rgba(22, 137, 200, 0.45);
+}
+
+.edu-node {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.edu-row:hover .edu-node {
+  transform: scale(1.08);
+}
+.edu-node-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0;
+  pointer-events: none;
+}
+.edu-row:hover .edu-node-ring {
+  animation: edu-node-pulse 1.4s ease-out infinite;
+}
+
+.edu-card {
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease,
+    transform 0.3s ease;
+}
+.edu-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, rgba(13, 48, 86, 0.5));
+  box-shadow: 0 22px 55px -20px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.edu-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: translateX(-150%) skewX(-18deg);
+  pointer-events: none;
+  z-index: 1;
+}
+.edu-card:hover .edu-sheen {
+  animation: social-sweep 0.95s ease-out;
+}

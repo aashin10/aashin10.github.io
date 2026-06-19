@@ -30,6 +30,10 @@ export const navLinks = [
     title: "Experience",
   },
   {
+    id: "education",
+    title: "Education",
+  },
+  {
     id: "events",
     title: "Events",
   },
@@ -185,5 +189,32 @@ const socials = [
   },
 ];
 
-export { experiences, portfolio, events, certifications, socials };
+// Academic timeline rendered by the Education section, newest first. Add more
+// entries here (icon maps to a glyph in Education.jsx) and the timeline grows
+// automatically.
+const education = [
+  {
+    icon: "cap",
+    title: "B.Tech in Computer Science",
+    institution: "Mar Athanasius College of Engineering",
+    score: { value: 7.54, decimals: 2, trailing: "", label: "CGPA" },
+    accent: "#1689C8",
+  },
+  {
+    icon: "book",
+    title: "Senior Secondary",
+    institution: "Marygiri CMI Public School",
+    score: { value: 93.4, decimals: 1, trailing: "%", label: "Percentage" },
+    accent: "#38BDF8",
+  },
+  {
+    icon: "book",
+    title: "High School",
+    institution: "Marygiri CMI Public School",
+    score: { value: 90.4, decimals: 1, trailing: "%", label: "Percentage" },
+    accent: "#818CF8",
+  },
+];
+
+export { experiences, portfolio, events, certifications, socials, education };
 
