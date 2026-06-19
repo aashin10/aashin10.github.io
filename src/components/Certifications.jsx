@@ -39,18 +39,31 @@ const Certifications = () => {
 
   const cert = certifications[active];
 
-  // Size the viewer (tall as the sidebar on desktop; fixed when stacked on
-  // mobile) and keep an already-delivered card resting in place across
-  // breakpoint changes.
+  // Size the viewer and align the sidebar top with the card's resting position.
+  // Viewer height uses a fixed minimum (600px) so the section doesn't shrink
+  // when fewer certs are shown — the sidebar paddingTop is synced to match
+  // wherever the card lands, keeping the first sidebar item and card top-aligned
+  // regardless of how many certs are in the list.
   useLayoutEffect(() => {
     const sync = () => {
       if (!sidebarRef.current || !viewerRef.current) return;
       const mobile = window.innerWidth <= 640;
       const cardH = cardRef.current ? cardRef.current.offsetHeight : 0;
       viewerRef.current.style.height =
-        (mobile
-          ? Math.max(380, cardH + 40)
-          : Math.max(sidebarRef.current.offsetHeight, 360)) + "px";
+        Math.max(600, cardH + 60) + "px";
+
+      // Compute where the card will rest and pad the sidebar to match.
+      const vOffTop = viewerRef.current.offsetTop;
+      const vH = viewerRef.current.offsetHeight;
+      const cardCentered = (vH - cardH) / 2;
+      const minCardTop = CEILING_MARGIN + ROCKET_H + CARD_GAP - vOffTop;
+      const cardTargetTop = Math.max(cardCentered, minCardTop);
+      if (!mobile) {
+        sidebarRef.current.style.paddingTop = cardTargetTop + "px";
+      } else {
+        sidebarRef.current.style.paddingTop = "0px";
+      }
+
       if (deliveredRef.current && !busyRef.current && cardRef.current) {
         cardRef.current.style.top = getSizes().cardTargetTop + "px";
       }
@@ -312,22 +325,14 @@ const Certifications = () => {
                   </div>
                   <span className="cert-vbadge">✓ Verified</span>
                 </div>
-                <div className="cert-imgzone">
-                  <svg
-                    width="46"
-                    height="46"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke={cert.color}
-                    strokeWidth="1.2"
-                    style={{ opacity: 0.35 }}
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="9" cy="9" r="2" />
-                    <path d="M3 15l5-5 4 4 3-3 6 6" />
-                  </svg>
-                  <div className="cert-izl">Certificate Image</div>
-                  <div className="cert-izs">Click to upload</div>
+                <div className="cert-imgzone" style={{ padding: 0, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(22,137,200,0.18)" }}>
+                  <a href={cert.link} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
+                    <img
+                      src={cert.image}
+                      alt={cert.name}
+                      style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "8px", display: "block", cursor: "pointer" }}
+                    />
+                  </a>
                 </div>
                 <div className="cert-meta-g">
                   <div className="cert-mi">
