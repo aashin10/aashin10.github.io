@@ -32,6 +32,10 @@ export const navLinks = [
     title: "Events",
   },
   {
+    id: "certifications",
+    title: "Certifications",
+  },
+  {
     id: "contact",
     title: "Contact",
   },
@@ -144,5 +148,14 @@ const events = [
   }
 ];
 
-export { experiences, portfolio, events };
+const certifications = [
+  { abbr: "AZ", name: "Azure Fundamentals (AZ-900)", platform: "Microsoft Azure", date: "Jan 2025", id: "AZ-3F8A-2025", tags: ["Cloud", "Azure", "IaaS", "Security"], color: "#0078D4", glow: "rgba(0,120,212,0.28)" },
+  { abbr: "AWS", name: "AWS Cloud Practitioner", platform: "Amazon Web Services", date: "Mar 2025", id: "CLF-C02-7B2D", tags: ["AWS", "EC2", "S3", "IAM"], color: "#FF9900", glow: "rgba(255,153,0,0.28)" },
+  { abbr: ".NET", name: "Programming in C# (.NET 8)", platform: "Microsoft", date: "Aug 2024", id: "MS-70483-9E1C", tags: ["C#", ".NET", "OOP", "LINQ"], color: "#7c5cfc", glow: "rgba(124,92,252,0.28)" },
+  { abbr: "GCP", name: "Google Cloud Essentials", platform: "Google Cloud", date: "Nov 2024", id: "GCP-ASSOC-4D7F", tags: ["GCP", "Kubernetes", "Cloud Run"], color: "#34a853", glow: "rgba(52,168,83,0.28)" },
+  { abbr: "DKR", name: "Docker Certified Associate", platform: "Docker / CNCF", date: "May 2024", id: "DCA-5A3B-2024", tags: ["Docker", "Containers", "DevOps"], color: "#2496ED", glow: "rgba(36,150,237,0.28)" },
+  { abbr: "LF", name: "DevOps & Cloud Native Essentials", platform: "Linux Foundation", date: "Feb 2025", id: "LFD-8C2E-2025", tags: ["CI/CD", "GitHub Actions", "Pipeline"], color: "#E87722", glow: "rgba(232,119,34,0.28)" },
+];
+
+export { experiences, portfolio, events, certifications };
 
