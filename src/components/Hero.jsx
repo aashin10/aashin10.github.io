@@ -13,7 +13,7 @@ const Hero = ({ scrollContainer }) => {
         </div>
         <div className="flex-1 flex justify-start lg:justify-end mt-4 sm:mt-14 ml-8 xs:ml-[-4vh] sm:ml-[-17vh] md:ml-[-26vh] lg:mt-10 2xl:mt-0">
           <div className='font-bold text-[20px] sm:text-[30px] md:text-[36px] 2xl:text-[46px] sm:leading-[40px] md:leading-[50px] 2xl:leading-[60px] streaky-glow max-w-sm 2xl:max-w-lg text-white text-left'>
-            I love exploring <br/> AI capabilities and develop models to tackle real world problems.
+            Building scalable backend systems,<br/> solving complex optimization problems, and occasionally hosting the celebration afterwards.
           </div>
         </div>
       </div>

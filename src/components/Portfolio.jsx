@@ -1,5 +1,5 @@
-import { motion, useAnimation } from "framer-motion";
-import React, { useEffect } from "react";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { portfolio } from "../data";
@@ -11,18 +11,29 @@ const ProjectCard = ({
   index,
   name,
   description,
-  image,
+  images,
 }) => {
   const controls = useAnimation();
   const { ref, inView } = useInView({
     threshold: 0.1,
   });
+  const [imageCount, setImageCount] = useState(0);
 
   useEffect(() => {
     if (inView) {
       controls.start("show");
     }
   }, [controls, inView]);
+
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+    const interval = setInterval(() => {
+      setImageCount((prev) => prev + 1);
+    }, 3000); // Change image every 3 seconds
+    return () => clearInterval(interval);
+  }, [images]);
+
+  const currentImageIndex = imageCount % (images?.length || 1);
 
   const isEven = index % 2 === 0;
 
@@ -34,12 +45,32 @@ const ProjectCard = ({
       variants={fadeIn("up", "spring", 0, 0.75)}
       className={`w-full mt-[-2px] flex flex-col md:flex-row ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-5`}
     >
-      <div className='relative w-full md:w-3/5'>
-        <img
-          src={image}
-          alt='project_image'
-          className='w-full h-auto object-cover md:rounded-3xl'
-        />
+      <div className='relative w-full md:w-3/5 overflow-hidden md:rounded-3xl'>
+        {/* Invisible dummy image to keep the container height responsive */}
+        {images && images.length > 0 && (
+          <>
+            <img
+              src={images[0]}
+              alt='project_image_placeholder'
+              className='w-full h-auto object-cover opacity-0 pointer-events-none'
+            />
+            <AnimatePresence initial={false}>
+              <motion.img
+                key={imageCount}
+                src={images[currentImageIndex]}
+                alt='project_image'
+                className='absolute top-0 left-0 w-full h-full object-cover md:rounded-3xl'
+                initial={{ opacity: 0, scale: 1.06 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  opacity: { duration: 0.9, ease: "easeInOut" },
+                  scale: { duration: 4, ease: "easeOut" },
+                }}
+              />
+            </AnimatePresence>
+          </>
+        )}
       </div>
 
       <div className={`w-full md:w-2/5 px-6 md:p-16 flex flex-col justify-center ${isEven ? "text-left md:text-left" : "text-left md:text-right"}`}>

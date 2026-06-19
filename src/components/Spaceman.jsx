@@ -20,21 +20,11 @@ const Spaceman = ({ scale, position }) => {
   );
 };
 
-const SpacemanCanvas = ({ scrollContainer }) => {
-  const [rotationX, setRotationX] = useState(0);
-  const [rotationY, setRotationY] = useState(0);
+const SpacemanCanvas = () => {
   const [scale, setScale] = useState([2, 2, 2]);
   const [position, setPosition] = useState([0.2, -0.7, 0]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = scrollContainer.current.scrollTop;
-      const rotationXValue = scrollTop * -0.0006;
-      const rotationYValue = scrollTop * -0.00075;
-      setRotationX(rotationXValue);
-      setRotationY(rotationYValue);
-    };
-
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setScale([1, 1, 1]);
@@ -55,14 +45,12 @@ const SpacemanCanvas = ({ scrollContainer }) => {
     };
 
     handleResize();
-    window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, [scrollContainer]);
+  }, []);
 
   return (
     <Canvas className={`w-full h-screen bg-transparent z-10`} camera={{ near: 0.1, far: 1000 }}>
@@ -73,10 +61,13 @@ const SpacemanCanvas = ({ scrollContainer }) => {
         <spotLight position={[0, 50, 10]} angle={0.15} penumbra={1} intensity={2} />
         <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" intensity={1} />
 
-        <Spaceman rotationX={rotationX} rotationY={rotationY} scale={scale} position={position} />
+        <Spaceman scale={scale} position={position} />
       </Suspense>
     </Canvas>
   );
 };
+
+// Start fetching the model as soon as this module loads so it is ready sooner.
+useGLTF.preload(spacemanScene);
 
 export default SpacemanCanvas;

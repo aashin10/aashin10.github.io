@@ -6,8 +6,12 @@ import Navbar from "./Navbar";
 import Portfolio from "./Portfolio";
 import Position from "./Position";
 import SpacemanCanvas from "./Spaceman";
+import Events from "./Events";
+import Certifications from "./Certifications";
+import Socials from "./Socials";
+import Education from "./Education";
 
 export {
-    CanvasLoader, Contact, Experience, Hero, Navbar, Portfolio, Position, SpacemanCanvas
+    CanvasLoader, Contact, Experience, Hero, Navbar, Portfolio, Position, SpacemanCanvas, Events, Certifications, Socials, Education
 };
 

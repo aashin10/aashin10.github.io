@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 .env
+.github
 
 # vscode
 .vscode
