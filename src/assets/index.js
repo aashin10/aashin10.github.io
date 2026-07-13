@@ -16,9 +16,10 @@ import community from "./community.jpeg";
 import leadership from "./leadership.jpeg";
 import academic from "./academic.jpeg";
 import creative from "./creative.jpeg";
+import borrowingsTracker from "./borrowingsTracker.jpeg";
 
 import ImageProcessingCertificate from "./ImageProcessingCertificate.jpg";
 import MachineLearningCertificate from "./MachineLearningCertificate.jpg";
 
-export { writer, close, diet, logo, menu, lungfraud, overview, silos, truck, BestProject, Executives, technical, community, leadership, academic, creative, ImageProcessingCertificate, MachineLearningCertificate };
+export { writer, close, diet, logo, menu, lungfraud, overview, silos, truck, BestProject, Executives, technical, community, leadership, academic, creative, borrowingsTracker, ImageProcessingCertificate, MachineLearningCertificate };
 

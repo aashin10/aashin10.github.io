@@ -14,6 +14,7 @@ import {
   creative,
   ImageProcessingCertificate,
   MachineLearningCertificate,
+  borrowingsTracker,
 } from "../assets";
 
 export const navLinks = [
@@ -133,7 +134,7 @@ const events = [
     category: "Entrepreneurship",
     date: "May 2026",
     description: "A simple application to track borrowings and lendings among friends and family, built using React Native and Supabase.",
-    images: [community],
+    images: [borrowingsTracker],
     heightClass: "h-[200px]"
   }
 ];

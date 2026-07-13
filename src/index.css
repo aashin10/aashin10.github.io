@@ -89,7 +89,7 @@
 
 .parallax__content {
   --parallax-speed: 210;
-  z-index: 5;
+  z-index: 15;
   display: flex;
   flex-direction: column;
   align-items: center;
