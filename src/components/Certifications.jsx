@@ -325,7 +325,7 @@ const Certifications = () => {
                   </div>
                   <span className="cert-vbadge">✓ Verified</span>
                 </div>
-                <div className="cert-imgzone" style={{ padding: 0, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(22,137,200,0.18)" }}>
+                <div className="cert-imgzone" style={{ padding: 0, background: "rgba(0,0,0,0.18)", border: `1px solid ${cert.color}30` }}>
                   <a href={cert.link} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
                     <img
                       src={cert.image}

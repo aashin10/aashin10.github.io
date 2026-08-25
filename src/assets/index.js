@@ -20,6 +20,7 @@ import borrowingsTracker from "./borrowingsTracker.jpeg";
 
 import ImageProcessingCertificate from "./ImageProcessingCertificate.jpg";
 import MachineLearningCertificate from "./MachineLearningCertificate.jpg";
+import Claude101Badge from "./claude101-badge.png";
 
-export { writer, close, diet, logo, menu, lungfraud, overview, silos, truck, BestProject, Executives, technical, community, leadership, academic, creative, borrowingsTracker, ImageProcessingCertificate, MachineLearningCertificate };
+export { writer, close, diet, logo, menu, lungfraud, overview, silos, truck, BestProject, Executives, technical, community, leadership, academic, creative, borrowingsTracker, ImageProcessingCertificate, MachineLearningCertificate, Claude101Badge };
 

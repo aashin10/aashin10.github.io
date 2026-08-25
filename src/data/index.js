@@ -15,6 +15,7 @@ import {
   ImageProcessingCertificate,
   MachineLearningCertificate,
   borrowingsTracker,
+  Claude101Badge,
 } from "../assets";
 
 export const navLinks = [
@@ -140,6 +141,18 @@ const events = [
 ];
 
 const certifications = [
+  {
+    abbr: "CC",
+    name: "Claude Code 101",
+    platform: "Claude Academy",
+    date: "2026",
+    id: "796dceb9e7c5cb09077400b21fccfcab",
+    tags: ["Claude Code", "AI Agents", "Developer Tools"],
+    color: "#D97757",
+    glow: "rgba(217,119,87,0.28)",
+    image: Claude101Badge,
+    link: "https://academy.claude.com/verify/796dceb9e7c5cb09077400b21fccfcab",
+  },
   {
     abbr: "IP",
     name: "Image Processing",
