@@ -692,7 +692,11 @@
   width: 14px;
   flex: none;
   border-radius: 999px;
-  background: rgba(240, 239, 235, 0.18);
+  background: rgba(240, 239, 235, 0.38);
+  /* Tight dark halo. The dashes sit over both the near-black sections and the
+     bright hero sun, and 2px of low-opacity white disappears against the
+     latter. Contained to the marker so nothing outside the rail changes tone. */
+  box-shadow: 0 0 4px rgba(1, 24, 37, 0.85);
   transition:
     width var(--rail-spring),
     background-color 300ms ease,
@@ -700,14 +704,16 @@
 }
 
 .nav-rail__item:hover .nav-rail__marker {
-  background: rgba(240, 239, 235, 0.5);
+  background: rgba(240, 239, 235, 0.7);
   width: 20px;
 }
 
 .nav-rail__item[data-active="true"] .nav-rail__marker {
   width: 28px;
   background: linear-gradient(90deg, #1689c8, #38bdf8, #818cf8);
-  box-shadow: 0 0 12px rgba(22, 137, 200, 0.45);
+  box-shadow:
+    0 0 12px rgba(22, 137, 200, 0.55),
+    0 0 4px rgba(1, 24, 37, 0.85);
 }
 
 .nav-rail__label {
