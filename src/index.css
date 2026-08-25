@@ -639,3 +639,101 @@
 .edu-card:hover .edu-sheen {
   animation: social-sweep 0.95s ease-out;
 }
+/* --- Nav rail -------------------------------------------------------------
+   The section nav collapses to a column of dashes when the page is idle and
+   opens to labels on scroll, hover or focus. Markers are right-anchored and
+   every row is a fixed height, so opening and closing only ever changes the
+   rail's width -- nothing above, below or beneath it moves. The active marker
+   uses the same blue-to-indigo ramp as the timeline spine. */
+
+.nav-rail {
+  /* spring, bounce 0.18, perceptual duration 0.35s */
+  --rail-spring: 650ms linear(0, 0.0831, 0.2573, 0.4484, 0.6193, 0.7554,
+      0.8552, 0.9233, 0.9665, 0.9916, 1.0046, 1.01, 1.0111, 1.0099, 1.0079,
+      1.0058, 1.004, 1.0025, 1.0015, 1.0008, 1.0003, 1);
+  position: relative;
+}
+
+/* Soft scrim behind the labels. No backdrop-filter on purpose: it would
+   repaint over the parallax on every scrolled frame, and over a palette this
+   dark a layered gradient reads the same. */
+.nav-rail__panel {
+  position: absolute;
+  inset: -10px -14px;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(13, 48, 86, 0.55), rgba(1, 24, 37, 0.35));
+  border: 1px solid rgba(22, 137, 200, 0.16);
+  box-shadow: 0 20px 50px -26px rgba(1, 24, 37, 0.95);
+  transform-origin: 100% 50%;
+  pointer-events: none;
+}
+
+/* Hairline that traces the rail, brightest at the middle -- the same
+   transparent-to-blue-to-transparent figure as .social-divider. */
+.nav-rail__spine {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  right: -14px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(22, 137, 200, 0.35),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.nav-rail__marker {
+  display: block;
+  height: 2px;
+  width: 14px;
+  flex: none;
+  border-radius: 999px;
+  background: rgba(240, 239, 235, 0.18);
+  transition:
+    width var(--rail-spring),
+    background-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.nav-rail__item:hover .nav-rail__marker {
+  background: rgba(240, 239, 235, 0.5);
+  width: 20px;
+}
+
+.nav-rail__item[data-active="true"] .nav-rail__marker {
+  width: 28px;
+  background: linear-gradient(90deg, #1689c8, #38bdf8, #818cf8);
+  box-shadow: 0 0 12px rgba(22, 137, 200, 0.45);
+}
+
+.nav-rail__label {
+  white-space: nowrap;
+  color: rgba(240, 239, 235, 0.45);
+  transition: color 300ms ease;
+}
+
+.nav-rail__item:hover .nav-rail__label,
+.nav-rail__item[data-active="true"] .nav-rail__label {
+  color: #fff;
+}
+
+.nav-rail__item:focus-visible {
+  outline: none;
+}
+
+.nav-rail__item:focus-visible .nav-rail__marker {
+  background: #38bdf8;
+  width: 28px;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-rail__marker,
+  .nav-rail__label {
+    transition: none;
+  }
+}
