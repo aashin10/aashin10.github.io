@@ -52,6 +52,8 @@ const ProjectCard = ({
             <img
               src={images[0]}
               alt='project_image_placeholder'
+              loading='lazy'
+              decoding='async'
               className='w-full h-auto object-cover opacity-0 pointer-events-none'
             />
             <AnimatePresence initial={false}>
@@ -59,6 +61,8 @@ const ProjectCard = ({
                 key={imageCount}
                 src={images[currentImageIndex]}
                 alt='project_image'
+                loading='lazy'
+                decoding='async'
                 className='absolute top-0 left-0 w-full h-full object-cover md:rounded-3xl'
                 initial={{ opacity: 0, scale: 1.06 }}
                 animate={{ opacity: 1, scale: 1 }}

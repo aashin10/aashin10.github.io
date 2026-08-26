@@ -330,6 +330,8 @@ const Certifications = () => {
                     <img
                       src={cert.image}
                       alt={cert.name}
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "8px", display: "block", cursor: "pointer" }}
                     />
                   </a>

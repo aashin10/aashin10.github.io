@@ -34,7 +34,10 @@
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  perspective: 10px;
+  /* No perspective here. It was the other half of a translateZ + scale parallax
+     that the animation-timeline: scroll() rewrite replaced, and with no translateZ
+     left to consume it, it only forced a 3D rendering context over the whole
+     ~8800px scroll subtree. */
 }
 
 .parallax {
@@ -48,8 +51,20 @@
   grid-template-areas: "stack";
 }
 
+/* Every child stacks, but only the layers that declare a --parallax-speed get an
+   animation. The <canvas> and .parallax__crater have no speed, so their
+   translateY(calc(var(--parallax-speed) * 1vh)) was invalid-at-computed-value-time
+   and resolved to `none` -- two live animations moving nothing. */
 .parallax > * {
   grid-area: stack;
+}
+
+.parallax__stars,
+.parallax__planets,
+.parallax__sun,
+.parallax__mountain1,
+.parallax__mountain2,
+.parallax__content {
   animation: parallax linear;
   animation-timeline: scroll();
 }
