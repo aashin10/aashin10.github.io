@@ -1,6 +1,5 @@
 import {
   animate,
-  AnimatePresence,
   motion,
   useAnimationFrame,
   useMotionValue,
@@ -13,7 +12,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties } from 'react'
 import { hero, person } from '../../content/site'
 import { useFinePointer } from '../../hooks/useMediaQuery'
 import { EXPO } from '../../lib/ease'
-import { lerp, smoothstep } from '../../lib/math'
+import { clamp, lerp, smoothstep } from '../../lib/math'
 import { useCurtainUp } from '../../providers/Stage'
 import { useScrollTo } from '../../providers/SmoothScroll'
 import { Arrow, ButtonLink } from '../core/Button'
@@ -46,6 +45,8 @@ interface Geometry {
   centers: Float32Array
   /** Reach of the kinetic effect in px. */
   reach: number
+  /** Widest the letters may open here, given the room beside the name. */
+  maxWidth: number
 }
 
 export function Hero() {
@@ -100,6 +101,12 @@ export function Hero() {
         centers[index * 2] = box.left + box.width / 2 - nameBox.left
         centers[index * 2 + 1] = box.top + box.height / 2 - nameBox.top
       })
+      const fontSize = parseFloat(getComputedStyle(name).fontSize)
+      // Opening the letters fully adds roughly 0.4em to a line. Where the name
+      // already runs close to the edge (phones, tablets) it opens less.
+      const gutter = parseFloat(getComputedStyle(name.parentElement ?? name).marginLeft) || 20
+      const room = sectionBox.right - nameBox.right - gutter - 20
+      const share = clamp(room / (fontSize * 0.4), 0.2, 1)
       geometry.current = {
         width: sectionBox.width,
         height: sectionBox.height,
@@ -108,9 +115,13 @@ export function Hero() {
         nameWidth: nameBox.width,
         nameHeight: nameBox.height,
         centers,
-        reach: parseFloat(getComputedStyle(name).fontSize) * 1.05,
+        reach: fontSize * 1.05,
+        maxWidth: BASE_WIDTH + (MAX_WIDTH - BASE_WIDTH) * share,
       }
       setViewportHeight(window.innerHeight)
+      // A stage taller than the screen (small phones, landscape) scrolls to its
+      // end before it pins, so nothing at the bottom is ever out of reach.
+      section.style.top = `${Math.min(0, window.innerHeight - sectionBox.height)}px`
     }
 
     measure()
@@ -177,7 +188,7 @@ export function Hero() {
 
     // Open up the letters nearest the light. Each layer holds one copy of the
     // name, so letter i of every layer shares the same target width.
-    const maxWidth = fine ? MAX_WIDTH : MAX_WIDTH_TOUCH
+    const maxWidth = fine ? g.maxWidth : Math.min(g.maxWidth, MAX_WIDTH_TOUCH)
     const lit = power.get()
     const all = letters.current
     const layers = all.length / LETTER_COUNT
@@ -206,7 +217,7 @@ export function Hero() {
       id="top"
       ref={sectionRef}
       aria-label="Introduction"
-      className="surface-dark sticky top-0 isolate h-svh min-h-[40rem] overflow-clip"
+      className="surface-dark sticky top-0 isolate min-h-svh overflow-clip"
     >
       {/* CSS stand-in for the stage lighting if WebGL is unavailable. */}
       <div
@@ -222,7 +233,7 @@ export function Hero() {
       />
 
       <motion.div
-        className="shell relative z-10 flex h-full flex-col pt-24 pb-6 will-change-transform md:pt-28 md:pb-8"
+        className="shell relative z-10 flex min-h-svh flex-col pt-24 pb-8 will-change-transform md:pt-28 md:pb-10"
         style={reduce ? undefined : { scale: exitScale, y: exitY, opacity: exitOpacity }}
       >
         <div className="t-label flex items-center justify-between gap-6 text-muted">
@@ -238,7 +249,7 @@ export function Hero() {
           <div className="relative w-fit">
             <h1
               ref={nameRef}
-              className="t-poster relative w-fit text-[min(26vw,30svh)] select-none xl:text-[min(17.5vw,40svh)]"
+              className="t-poster relative w-fit text-[min(26vw,max(24svh,5.5rem))] select-none xl:text-[min(17.5vw,40svh)]"
               style={{ '--sx': '50%', '--sy': '50%' } as CSSProperties}
             >
               <span className="sr-only">{person.name}</span>
@@ -268,7 +279,7 @@ export function Hero() {
           </div>
 
           {/* Beside the name on wide screens, under it everywhere else. */}
-          <div className="flex flex-col gap-6 xl:ml-auto xl:w-[min(100%,22rem)] xl:justify-between xl:gap-8 2xl:w-[min(100%,27rem)]">
+          <div className="flex flex-col gap-6 md:max-xl:grid md:max-xl:grid-cols-2 md:max-xl:items-end md:max-xl:gap-x-10 xl:ml-auto xl:w-[min(100%,22rem)] xl:justify-between xl:gap-8 2xl:w-[min(100%,27rem)]">
             <div className="flex items-end justify-between gap-4">
               <FadeIn show={curtainUp} delay={1.1}>
                 <p className="t-label mb-2 text-muted">Now playing</p>
@@ -279,8 +290,8 @@ export function Hero() {
               </FadeIn>
             </div>
 
-            <div>
-              <p className="text-[clamp(1.7rem,3.4vw,3.4rem)] leading-[1.02] font-medium tracking-[-0.03em] xl:text-[clamp(2.2rem,3.1vw,3.6rem)]">
+            <div className="md:max-xl:contents">
+              <p className="text-[clamp(1.7rem,3.4vw,3.4rem)] leading-[1.02] font-medium tracking-[-0.03em] md:max-xl:col-start-1 md:max-xl:row-start-2 xl:text-[clamp(2.2rem,3.1vw,3.6rem)]">
                 <SplitText text={hero.tagline[0]} show={curtainUp} delay={1.05} className="block" />
                 <SplitText
                   text={hero.tagline[1]}
@@ -289,7 +300,7 @@ export function Hero() {
                   className="t-serif block text-[1.08em] text-accent-text"
                 />
               </p>
-              <FadeIn show={curtainUp} delay={1.35} className="mt-5 xl:mt-7">
+              <FadeIn show={curtainUp} delay={1.35} className="mt-5 md:max-xl:col-start-2 md:max-xl:row-span-2 md:max-xl:row-start-1 md:max-xl:mt-0 md:max-xl:self-end xl:mt-7">
                 <p className="max-w-[34rem] text-[0.98rem] leading-relaxed text-muted">{hero.intro}</p>
                 <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
                   <ButtonLink href="#contact" onClick={goTo('contact')}>
@@ -411,21 +422,19 @@ function RoleTicker({ start }: { start: boolean }) {
   }, [start, reduce])
 
   return (
-    <span className="relative block h-[1.25em] overflow-clip text-[clamp(1.25rem,2vw,1.9rem)] leading-tight font-semibold tracking-tight">
+    <span className="block h-[1.25em] overflow-clip text-[clamp(1.25rem,2vw,1.9rem)] leading-[1.25] font-semibold tracking-tight">
       <span className="sr-only">{hero.roles.join(', ')}</span>
-      <AnimatePresence initial={false} mode="popLayout">
-        <motion.span
-          key={index}
-          aria-hidden
-          className="block whitespace-nowrap"
-          initial={{ transform: 'translateY(105%)' }}
-          animate={{ transform: 'translateY(0%)' }}
-          exit={{ transform: 'translateY(-105%)' }}
-          transition={{ duration: 0.7, ease: EXPO }}
-        >
-          {hero.roles[index]}
-        </motion.span>
-      </AnimatePresence>
+      <span
+        aria-hidden
+        className="block transition-transform duration-700 ease-expo will-change-transform motion-reduce:transition-none"
+        style={{ transform: `translateY(${-index * 1.25}em)` }}
+      >
+        {hero.roles.map((role) => (
+          <span key={role} className="block whitespace-nowrap">
+            {role}
+          </span>
+        ))}
+      </span>
     </span>
   )
 }

@@ -94,6 +94,26 @@
   color-scheme: dark;
 }
 
+/* Always paper, whatever the theme. With the house lights on it drops a shade
+   so it still reads as a card against the paper page. */
+.surface-paper {
+  --bg: #f1ebdd;
+  --fg: #0a0908;
+  --muted: rgb(10 9 8 / 0.68);
+  --faint: rgb(10 9 8 / 0.4);
+  --line: rgb(10 9 8 / 0.18);
+  --surface: #e5dccb;
+  --accent: #ff4d21;
+  --accent-text: #c2330a;
+  --on-accent: #0a0908;
+  color-scheme: light;
+}
+[data-theme='light'] .surface-paper {
+  --bg: #e6decd;
+  --surface: #d9d0bd;
+  --accent-text: #b82f08;
+}
+
 /* The accent used as a full surface (ink text on ember). */
 .surface-ember {
   --bg: #ff4d21;
@@ -111,6 +131,7 @@
 .surface-dark,
 .surface-light,
 .surface-invert,
+.surface-paper,
 .surface-ember {
   background-color: var(--bg);
   color: var(--fg);
@@ -318,4 +339,9 @@ html.has-cursor textarea {
   *::after {
     scroll-behavior: auto !important;
   }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-7px); }
+  50% { transform: translateY(7px); }
 }

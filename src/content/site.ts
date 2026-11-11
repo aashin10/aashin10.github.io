@@ -75,7 +75,7 @@ export interface Project {
   stack: string[]
   highlights: string[]
   visual: ProjectVisual
-  surface: 'surface-dark' | 'surface-invert' | 'surface-ember'
+  surface: 'surface-dark' | 'surface-paper' | 'surface-ember'
   link?: { label: string; href: string }
 }
 
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     stack: ['Angular', '.NET', 'SQL Server', 'AI planning'],
     highlights: ['Best Project Award', '300+ projects', '1000+ users'],
     visual: 'kanban',
-    surface: 'surface-invert',
+    surface: 'surface-paper',
   },
   {
     id: 'debtflix',
@@ -272,7 +272,9 @@ export const experience = [
 ] as const
 
 export const offScript = {
-  intro: 'Hosting, hackathons and the occasional 10K. Drag them around.',
+  intro: 'Hosting, hackathons and the occasional 10K.',
+  hintDrag: 'Drag them around.',
+  hintSwipe: 'Swipe through.',
   cards: [
     { image: 'host-portrait', title: 'On the mic', note: 'Hosting company events for 1000+ people', tag: '2026' },
     { image: 'best-project-award', title: 'Best Project Award', note: 'For the Project Management Tool', tag: '2025' },

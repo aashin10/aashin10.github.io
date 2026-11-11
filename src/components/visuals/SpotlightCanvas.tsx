@@ -1,5 +1,5 @@
 import { useAnimationFrame, useReducedMotion, type MotionValue } from 'motion/react'
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 const VERTEX = /* glsl */ `
 attribute vec2 a_position;
@@ -195,19 +195,22 @@ export function SpotlightCanvas({
   const sizeRef = useRef({ width: 1, height: 1, scale: 1 })
   const reduce = useReducedMotion()
 
-  const draw = (seconds: number) => {
-    const program = programRef.current
-    if (!program) return
-    const { gl } = program
-    const { height, scale } = sizeRef.current
-    gl.uniform2f(program.resolution, gl.drawingBufferWidth, gl.drawingBufferHeight)
-    gl.uniform2f(program.spot, spotX.get() * scale, (height - spotY.get()) * scale)
-    gl.uniform1f(program.time, seconds)
-    gl.uniform1f(program.power, power.get())
-    gl.drawArrays(gl.TRIANGLES, 0, 3)
-  }
-  const drawRef = useRef(draw)
-  drawRef.current = draw
+  // The motion values are stable objects, so this callback keeps one identity
+  // for the life of the canvas.
+  const draw = useCallback(
+    (seconds: number) => {
+      const program = programRef.current
+      if (!program) return
+      const { gl } = program
+      const { height, scale } = sizeRef.current
+      gl.uniform2f(program.resolution, gl.drawingBufferWidth, gl.drawingBufferHeight)
+      gl.uniform2f(program.spot, spotX.get() * scale, (height - spotY.get()) * scale)
+      gl.uniform1f(program.time, seconds)
+      gl.uniform1f(program.power, power.get())
+      gl.drawArrays(gl.TRIANGLES, 0, 3)
+    },
+    [spotX, spotY, power],
+  )
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -226,7 +229,7 @@ export function SpotlightCanvas({
       canvas.width = Math.max(1, Math.round(clientWidth * scale))
       canvas.height = Math.max(1, Math.round(clientHeight * scale))
       programRef.current?.gl.viewport(0, 0, canvas.width, canvas.height)
-      drawRef.current(0)
+      draw(0)
     }
     const observer = new ResizeObserver(resize)
     observer.observe(canvas)
@@ -248,14 +251,14 @@ export function SpotlightCanvas({
       canvas.removeEventListener('webglcontextrestored', onRestored)
       programRef.current = null
     }
-  }, [])
+  }, [draw])
 
   // Still frame for reduced motion: redraw only when the light level changes.
   useEffect(() => {
     if (!reduce) return undefined
-    drawRef.current(0)
-    return power.on('change', () => drawRef.current(0))
-  }, [reduce, power])
+    draw(0)
+    return power.on('change', () => draw(0))
+  }, [reduce, power, draw])
 
   useAnimationFrame((time) => {
     if (!active || reduce) return

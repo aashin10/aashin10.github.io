@@ -34,6 +34,14 @@ export function Nav() {
 
   useScrollLock(open)
 
+  // While the menu is open the page behind it is inert, so Tab stays in the menu.
+  useEffect(() => {
+    if (!open) return undefined
+    const behind = document.querySelectorAll<HTMLElement>('#main, footer')
+    behind.forEach((element) => element.setAttribute('inert', ''))
+    return () => behind.forEach((element) => element.removeAttribute('inert'))
+  }, [open])
+
   useEffect(() => {
     if (!open) return undefined
     const onKey = (event: KeyboardEvent) => {

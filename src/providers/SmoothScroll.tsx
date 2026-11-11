@@ -1,8 +1,21 @@
 import Lenis from 'lenis'
 import { cancelFrame, frame, useReducedMotion } from 'motion/react'
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useSyncExternalStore, type ReactNode } from 'react'
 
-const LenisContext = createContext<Lenis | null>(null)
+// The one Lenis instance, held outside React so any component can subscribe to
+// it coming and going (it is created in an effect, after first render).
+let current: Lenis | null = null
+const listeners = new Set<() => void>()
+const subscribe = (listener: () => void) => {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+const publish = (next: Lenis | null) => {
+  current = next
+  listeners.forEach((listener) => listener())
+}
 
 /**
  * Inertial page scrolling. Lenis still moves the real scroll position, so
@@ -12,7 +25,6 @@ const LenisContext = createContext<Lenis | null>(null)
  */
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion()
-  const [lenis, setLenis] = useState<Lenis | null>(null)
 
   useEffect(() => {
     if (reduce) return undefined
@@ -20,19 +32,24 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     const instance = new Lenis({ lerp: 0.11, wheelMultiplier: 1, touchMultiplier: 1.4 })
     const update = (data: { timestamp: number }) => instance.raf(data.timestamp)
     frame.update(update, true)
-    setLenis(instance)
+    publish(instance)
 
     return () => {
       cancelFrame(update)
       instance.destroy()
-      setLenis(null)
+      publish(null)
     }
   }, [reduce])
 
-  return <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>
+  return children
 }
 
-export const useLenis = () => useContext(LenisContext)
+export const useLenis = () =>
+  useSyncExternalStore(
+    subscribe,
+    () => current,
+    () => null,
+  )
 
 /** Scrolls to a section id (or the top), smoothly when motion is welcome. */
 export function useScrollTo() {

@@ -3,7 +3,15 @@ import { useState } from 'react'
 import { Cursor } from './components/core/Cursor'
 import { Nav } from './components/layout/Nav'
 import { Preloader } from './components/layout/Preloader'
+import { Footer } from './components/layout/Footer'
+import { About } from './components/sections/About'
+import { Contact } from './components/sections/Contact'
+import { Experience } from './components/sections/Experience'
 import { Hero } from './components/sections/Hero'
+import { OffScript } from './components/sections/OffScript'
+import { Services } from './components/sections/Services'
+import { Stack } from './components/sections/Stack'
+import { Work } from './components/sections/Work'
 import { SmoothScroll } from './providers/SmoothScroll'
 import { StageProvider } from './providers/Stage'
 import { ThemeProvider } from './providers/Theme'
@@ -27,11 +35,16 @@ export default function App() {
             <main id="main">
               <div className="relative">
                 <Hero />
-                <section id="about" className="surface-invert relative z-10 min-h-[160vh] rounded-t-[2rem]">
-                  <div className="shell py-32">placeholder</div>
-                </section>
+                <About />
               </div>
+              <Work />
+              <Services />
+              <Experience />
+              <OffScript />
+              <Stack />
+              <Contact />
             </main>
+            <Footer />
             <Cursor />
             <div className="grain" aria-hidden />
           </StageProvider>
