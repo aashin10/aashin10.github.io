@@ -1,0 +1,178 @@
+{
+  "host-portrait": {
+    "width": 664,
+    "height": 1028,
+    "variants": [
+      {
+        "width": 664,
+        "height": 1028,
+        "file": "host-portrait-664.webp"
+      },
+      {
+        "width": 400,
+        "height": 619,
+        "file": "host-portrait-400.webp"
+      }
+    ]
+  },
+  "best-project-award": {
+    "width": 1280,
+    "height": 719,
+    "variants": [
+      {
+        "width": 1280,
+        "height": 719,
+        "file": "best-project-award-1280.webp"
+      },
+      {
+        "width": 640,
+        "height": 359,
+        "file": "best-project-award-640.webp"
+      }
+    ]
+  },
+  "team-executives": {
+    "width": 1280,
+    "height": 719,
+    "variants": [
+      {
+        "width": 1280,
+        "height": 719,
+        "file": "team-executives-1280.webp"
+      },
+      {
+        "width": 640,
+        "height": 359,
+        "file": "team-executives-640.webp"
+      }
+    ]
+  },
+  "team-outing": {
+    "width": 1280,
+    "height": 960,
+    "variants": [
+      {
+        "width": 1280,
+        "height": 960,
+        "file": "team-outing-1280.webp"
+      },
+      {
+        "width": 640,
+        "height": 480,
+        "file": "team-outing-640.webp"
+      }
+    ]
+  },
+  "marathon": {
+    "width": 960,
+    "height": 1138,
+    "variants": [
+      {
+        "width": 960,
+        "height": 1138,
+        "file": "marathon-960.webp"
+      },
+      {
+        "width": 480,
+        "height": 569,
+        "file": "marathon-480.webp"
+      }
+    ]
+  },
+  "hackathon-certificate": {
+    "width": 842,
+    "height": 595,
+    "variants": [
+      {
+        "width": 842,
+        "height": 595,
+        "file": "hackathon-certificate-842.webp"
+      },
+      {
+        "width": 480,
+        "height": 339,
+        "file": "hackathon-certificate-480.webp"
+      }
+    ]
+  },
+  "debtflix": {
+    "width": 780,
+    "height": 1688,
+    "variants": [
+      {
+        "width": 780,
+        "height": 1688,
+        "file": "debtflix-780.webp"
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "file": "debtflix-390.webp"
+      }
+    ]
+  },
+  "dietx": {
+    "width": 960,
+    "height": 720,
+    "variants": [
+      {
+        "width": 960,
+        "height": 720,
+        "file": "dietx-960.webp"
+      },
+      {
+        "width": 480,
+        "height": 360,
+        "file": "dietx-480.webp"
+      }
+    ]
+  },
+  "cert-machine-learning": {
+    "width": 960,
+    "height": 742,
+    "variants": [
+      {
+        "width": 960,
+        "height": 742,
+        "file": "cert-machine-learning-960.webp"
+      },
+      {
+        "width": 480,
+        "height": 371,
+        "file": "cert-machine-learning-480.webp"
+      }
+    ]
+  },
+  "cert-image-processing": {
+    "width": 960,
+    "height": 742,
+    "variants": [
+      {
+        "width": 960,
+        "height": 742,
+        "file": "cert-image-processing-960.webp"
+      },
+      {
+        "width": 480,
+        "height": 371,
+        "file": "cert-image-processing-480.webp"
+      }
+    ]
+  },
+  "cert-claude-code-101": {
+    "width": 960,
+    "height": 650,
+    "variants": [
+      {
+        "width": 960,
+        "height": 650,
+        "file": "cert-claude-code-101-960.webp"
+      },
+      {
+        "width": 480,
+        "height": 325,
+        "file": "cert-claude-code-101-480.webp"
+      }
+    ]
+  }
+}
