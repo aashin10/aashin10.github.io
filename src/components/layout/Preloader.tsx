@@ -38,6 +38,10 @@ export function Preloader({ onOpen }: { onOpen: () => void }) {
 
   useEffect(() => {
     let cancelled = false
+    // The show opens on the stage, so a reload starts at the top instead of
+    // wherever the browser remembered. A link to a section is followed once
+    // the curtain is up.
+    history.scrollRestoration = 'manual'
     window.scrollTo(0, 0)
 
     const open = () => {
@@ -50,7 +54,17 @@ export function Preloader({ onOpen }: { onOpen: () => void }) {
       setPhase('opening')
       onOpen()
       animate(iris, 1, { duration: reduce ? 0.01 : 1.25, ease: QUART }).then(() => {
-        if (!cancelled) setPhase('done')
+        if (cancelled) return
+        setPhase('done')
+        const linked = window.location.hash.slice(1)
+        if (!linked || linked === 'top') return
+        // The section may still be mounting; look for it for a couple of seconds.
+        const follow = (attempt: number) => {
+          const target = document.getElementById(linked)
+          if (target) target.scrollIntoView({ block: 'start' })
+          else if (attempt < 40 && !cancelled) window.setTimeout(() => follow(attempt + 1), 50)
+        }
+        follow(0)
       })
     }
 

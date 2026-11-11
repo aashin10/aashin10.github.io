@@ -127,8 +127,12 @@ export function Hero() {
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(section)
+    window.addEventListener('resize', measure)
     document.fonts.ready.then(measure).catch(() => undefined)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', measure)
+    }
   }, [])
 
   // Lamp strike: a couple of flickers, then it holds.
@@ -273,7 +277,7 @@ export function Hero() {
               </span>
             </h1>
 
-            <FadeIn show={curtainUp} delay={1.3} className="absolute -right-3 -bottom-9 hidden md:block xl:-right-[9%] xl:-bottom-[7%]">
+            <FadeIn show={curtainUp} delay={1.3} className="absolute -right-3 -bottom-9 hidden md:block xl:-right-[12%] xl:-bottom-[8%]">
               <Badge onClick={goTo('contact')} />
             </FadeIn>
           </div>
@@ -362,12 +366,13 @@ function Badge({ onClick }: { onClick: (event: React.MouseEvent) => void }) {
       <a
         href="#contact"
         onClick={onClick}
-        aria-label="Available for freelance — get in touch"
         className="group relative grid size-28 place-items-center rounded-full xl:size-36"
       >
+        <span className="sr-only">Get in touch.</span>
         <svg
           viewBox="0 0 200 200"
-          aria-hidden
+          role="img"
+          aria-label={hero.badge}
           className="absolute inset-0 size-full animate-[spin-slow_18s_linear_infinite] motion-reduce:animate-none"
         >
           <defs>

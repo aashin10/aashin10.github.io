@@ -29,7 +29,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         <span
           className={cn(
             'absolute top-1/2 left-[3px] size-[16px] -translate-y-1/2 rounded-full transition-[transform,background-color,box-shadow] duration-500 ease-expo',
-            lit ? 'translate-x-[20px] bg-accent shadow-[0_0_14px_var(--accent)]' : 'bg-faint',
+            lit ? 'translate-x-[20px] bg-accent shadow-[0_0_14px_var(--accent)]' : 'bg-fg/45',
           )}
         />
       </span>

@@ -5,8 +5,6 @@ export const person = {
   name: 'Aashin Thomas',
   first: 'Aashin',
   last: 'Thomas',
-  initials: 'AT',
-  role: 'Web Developer & Software Engineer',
   location: 'Kerala, India',
   timeZone: 'Asia/Kolkata',
   timeZoneLabel: 'IST',

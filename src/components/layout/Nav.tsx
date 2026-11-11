@@ -83,7 +83,6 @@ export function Nav() {
             href="#top"
             onClick={go('top')}
             className="group flex items-center gap-2.5 py-1 pl-1"
-            aria-label={`${person.name} — back to top`}
           >
             <span className="relative grid size-2.5 place-items-center">
               <span className="absolute size-2.5 animate-[blink_1.6s_ease-in-out_infinite] rounded-full bg-accent motion-reduce:animate-none" />
@@ -91,6 +90,7 @@ export function Nav() {
             <span className="t-label">
               <RollText>{person.name}</RollText>
             </span>
+            <span className="sr-only">, back to top</span>
           </a>
 
           <nav aria-label="Primary" className="hidden lg:block">

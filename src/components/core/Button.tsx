@@ -12,14 +12,11 @@ const variants: Record<Variant, string> = {
 }
 
 /** The fill that wipes up from the bottom edge on hover. */
-function Wipe({ variant }: { variant: Variant }) {
+function Wipe() {
   return (
     <span
       aria-hidden
-      className={cn(
-        'absolute inset-0 translate-y-[101%] rounded-[50%_50%_0_0/60%_60%_0_0] transition-[transform,border-radius] duration-500 ease-expo group-hover:translate-y-0 group-hover:rounded-none motion-reduce:transition-none',
-        variant === 'solid' ? 'bg-fg' : 'bg-fg',
-      )}
+      className="absolute inset-0 translate-y-[101%] rounded-[50%_50%_0_0/60%_60%_0_0] bg-fg transition-[transform,border-radius] duration-500 ease-expo group-hover:translate-y-0 group-hover:rounded-none motion-reduce:transition-none"
     />
   )
 }
@@ -27,7 +24,7 @@ function Wipe({ variant }: { variant: Variant }) {
 function Inner({ children, variant }: { children: ReactNode; variant: Variant }) {
   return (
     <>
-      <Wipe variant={variant} />
+      <Wipe />
       <span
         className={cn(
           'relative z-10 inline-flex items-center gap-3 transition-colors duration-500',

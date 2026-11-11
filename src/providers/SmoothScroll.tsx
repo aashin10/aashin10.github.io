@@ -56,11 +56,15 @@ export function useScrollTo() {
   const lenis = useLenis()
   return useCallback(
     (target: string | number, options?: { offset?: number; immediate?: boolean }) => {
-      const element = typeof target === 'string' ? document.getElementById(target) : null
-      if (typeof target === 'string' && !element) return
+      // The hero is pinned, so its measured position is wherever the viewport
+      // happens to be. "top" therefore means the top of the page itself.
+      const toTop = target === 'top'
+      const element = typeof target === 'string' && !toTop ? document.getElementById(target) : null
+      if (typeof target === 'string' && !toTop && !element) return
+      const destination = toTop ? 0 : (element ?? (target as number))
 
       if (lenis) {
-        lenis.scrollTo(element ?? (target as number), {
+        lenis.scrollTo(destination, {
           offset: options?.offset ?? 0,
           immediate: options?.immediate,
           duration: 1.4,
@@ -69,7 +73,7 @@ export function useScrollTo() {
       } else if (element) {
         element.scrollIntoView({ behavior: 'auto', block: 'start' })
       } else {
-        window.scrollTo({ top: target as number, behavior: 'auto' })
+        window.scrollTo({ top: destination as number, behavior: 'auto' })
       }
 
       // Move keyboard focus with the viewport so the next Tab starts there.

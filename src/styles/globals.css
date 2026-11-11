@@ -45,7 +45,7 @@
   --bg: #0a0908;
   --fg: #f1ebdd;
   --muted: rgb(241 235 221 / 0.62);
-  --faint: rgb(241 235 221 / 0.34);
+  --faint: rgb(241 235 221 / 0.5);
   --line: rgb(241 235 221 / 0.16);
   --surface: #15120f;
   --accent: #ff4d21;
@@ -59,7 +59,7 @@
   --bg: #f1ebdd;
   --fg: #0a0908;
   --muted: rgb(10 9 8 / 0.68);
-  --faint: rgb(10 9 8 / 0.4);
+  --faint: rgb(10 9 8 / 0.58);
   --line: rgb(10 9 8 / 0.18);
   --surface: #e5dccb;
   --accent: #ff4d21;
@@ -73,7 +73,7 @@
   --bg: #f1ebdd;
   --fg: #0a0908;
   --muted: rgb(10 9 8 / 0.68);
-  --faint: rgb(10 9 8 / 0.4);
+  --faint: rgb(10 9 8 / 0.58);
   --line: rgb(10 9 8 / 0.18);
   --surface: #e5dccb;
   --accent: #ff4d21;
@@ -85,7 +85,7 @@
   --bg: #0a0908;
   --fg: #f1ebdd;
   --muted: rgb(241 235 221 / 0.62);
-  --faint: rgb(241 235 221 / 0.34);
+  --faint: rgb(241 235 221 / 0.5);
   --line: rgb(241 235 221 / 0.16);
   --surface: #15120f;
   --accent: #ff4d21;
@@ -100,7 +100,7 @@
   --bg: #f1ebdd;
   --fg: #0a0908;
   --muted: rgb(10 9 8 / 0.68);
-  --faint: rgb(10 9 8 / 0.4);
+  --faint: rgb(10 9 8 / 0.58);
   --line: rgb(10 9 8 / 0.18);
   --surface: #e5dccb;
   --accent: #ff4d21;
@@ -118,8 +118,8 @@
 .surface-ember {
   --bg: #ff4d21;
   --fg: #0a0908;
-  --muted: rgb(10 9 8 / 0.74);
-  --faint: rgb(10 9 8 / 0.5);
+  --muted: rgb(10 9 8 / 0.82);
+  --faint: rgb(10 9 8 / 0.78);
   --line: rgb(10 9 8 / 0.28);
   --surface: #f0431a;
   --accent: #0a0908;
@@ -202,11 +202,10 @@ html.lenis body {
   overflow: clip;
 }
 
-/* While the custom cursor is live the native one steps aside. */
+/* While the custom cursor is live the native one steps aside, except in text
+   fields where the I-beam is still the clearest signal. */
 html.has-cursor,
-html.has-cursor a,
-html.has-cursor button,
-html.has-cursor [data-cursor] {
+html.has-cursor * {
   cursor: none;
 }
 html.has-cursor input,

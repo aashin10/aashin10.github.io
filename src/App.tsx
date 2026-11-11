@@ -1,5 +1,5 @@
 import { MotionConfig } from 'motion/react'
-import { useState } from 'react'
+import { startTransition, useEffect, useState } from 'react'
 import { Cursor } from './components/core/Cursor'
 import { Nav } from './components/layout/Nav'
 import { Preloader } from './components/layout/Preloader'
@@ -19,6 +19,15 @@ import { ThemeProvider } from './providers/Theme'
 export default function App() {
   const [curtainUp, setCurtainUp] = useState(false)
 
+  // The curtain covers the page for the first couple of seconds, so everything
+  // below the hero is mounted a beat after first paint, as a transition. React
+  // then renders it in small slices and the opening animation stays smooth.
+  const [belowFold, setBelowFold] = useState(false)
+  useEffect(() => {
+    const id = window.setTimeout(() => startTransition(() => setBelowFold(true)), 80)
+    return () => window.clearTimeout(id)
+  }, [])
+
   return (
     <MotionConfig reducedMotion="user">
       <ThemeProvider>
@@ -35,16 +44,20 @@ export default function App() {
             <main id="main">
               <div className="relative">
                 <Hero />
-                <About />
+                {belowFold && <About />}
               </div>
-              <Work />
-              <Services />
-              <Experience />
-              <OffScript />
-              <Stack />
-              <Contact />
+              {belowFold && (
+                <>
+                  <Work />
+                  <Services />
+                  <Experience />
+                  <OffScript />
+                  <Stack />
+                  <Contact />
+                </>
+              )}
             </main>
-            <Footer />
+            {belowFold && <Footer />}
             <Cursor />
             <div className="grain" aria-hidden />
           </StageProvider>
