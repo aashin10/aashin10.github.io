@@ -1,15 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aashin's Portfolio</title>
-    <script type="module" crossorigin src="/assets/index-f742f246.js"></script>
-    <link rel="stylesheet" href="/assets/index-e0f32135.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Aashin Thomas — Websites with stage presence</title>
+    <meta
+      name="description"
+      content="Aashin Thomas is a freelance web developer and software engineer from Kerala, India, building fast, animated, carefully engineered websites and web apps."
+    />
+    <meta name="author" content="Aashin Thomas" />
+    <meta name="theme-color" content="#0a0908" />
+    <link rel="canonical" href="https://aashin10.github.io/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aashin10.github.io/" />
+    <meta property="og:title" content="Aashin Thomas — Websites with stage presence" />
+    <meta
+      property="og:description"
+      content="Freelance web developer and software engineer. Fast, animated, carefully engineered websites and web apps."
+    />
+    <meta property="og:image" content="https://aashin10.github.io/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Aashin Thomas",
+        "url": "https://aashin10.github.io/",
+        "jobTitle": "Web Developer & Software Engineer",
+        "worksFor": { "@type": "Organization", "name": "Experion Technologies" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Mar Athanasius College of Engineering" },
+        "address": { "@type": "PostalAddress", "addressRegion": "Kerala", "addressCountry": "IN" },
+        "sameAs": ["https://github.com/aashin10", "https://www.linkedin.com/in/aashin-thomas/"]
+      }
+    </script>
+
+    <!-- Paint the stage colour and restore the saved theme before first paint. -->
+    <style>html{background:#0a0908}html[data-theme=light]{background:#f1ebdd}</style>
+    <script>
+      try {
+        var t = localStorage.getItem('at-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/index-DrWyFxIb.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-WkwZ5CU-.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-DCTAcUCH.js">
+    <link rel="modulepreload" crossorigin href="/assets/motion-Dm1gV1hX.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-CG11OyTx.css">
   </head>
   <body>
     <div id="root"></div>
-    
+    <noscript>
+      <div style="padding: 2rem; color: #f1ebdd; font-family: system-ui, sans-serif">
+        <h1>Aashin Thomas</h1>
+        <p>Freelance web developer and software engineer, Kerala, India.</p>
+        <p>
+          This site needs JavaScript. Find me on
+          <a style="color: #ff4d21" href="https://www.linkedin.com/in/aashin-thomas/">LinkedIn</a> or
+          <a style="color: #ff4d21" href="https://github.com/aashin10">GitHub</a>.
+        </p>
+      </div>
+    </noscript>
   </body>
 </html>
